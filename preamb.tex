@@ -1,0 +1,364 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+
+\newcommand{\xlongertwoheadrightarrow}[1]{%
+    \mathrel{%
+        \mkern-15.25mu
+        \begin{tikzcd}[row sep=3.6em, column sep=1.8em, ampersand replacement=\&]
+            {}
+            \arrow[r, "#1", two heads] \&
+            {}
+        \end{tikzcd}
+        \mkern-16.25mu
+    }
+}
+\let\xlongertwoheadsrightarrow\xlongertwoheadrightarrow
+% \let\twoheadrightarrow\xlongertwoheadrightarrow
+
+\newcommand{\wlim}[1]{\mathrm{lim}^{#1}}
+\newcommand{\wcolim}[1]{\mathrm{colim}^{#1}}
+\newcommand{\procirc}{\mathbin{\diamond}}
+\newcommand{\ph}{\mathsf{h}}
+\newcommand{\WeightedEnd}[2]{\int_{#1}^{#2}}
+\newcommand{\WeightedCoend}[2]{\int^{#1}_{#2}}
+\newcommand{\DiNat}{\mathrm{DiNat}}
+\newcommand{\eHom}{\mathbf{hom}}
+\newcommand{\VDiNat}[1]{{\bf \DiNat}_{#1}}
+\newcommand{\VDiNatZero}[1]{\DiNat_{#1}}
+\newcommand{\pqDiNat}[2]{\DiNat^{(#1,#2)}}
+\newcommand{\pqNat}[2]{\Nat^{(#1,#2)}}
+\def\Tw#1{\mathrm{Tw}(#1)}
+\def\defeq{:=}
+\usepackage
+  { amssymb
+  , amsmath
+  , adjustbox
+  , amsthm
+  , booktabs
+  , lmodern
+  , mathtools
+  , tikz-cd
+  , todonotes
+  , xparse
+  , proof
+  , wrapfig
+  , xspace
+  , ytableau
+	, cancel
+	, commutative-diagrams
+}
+
+\usepackage{enumitem}
+\DeclareDocumentEnvironment{enumtag}{m}{%
+\begin{enumerate}%
+	[ label = \textsc{#1}\oldstylenums{\arabic*}),%
+		ref   = \textsc{#1}\oldstylenums{\arabic*}%
+	] }{ \end{enumerate} }
+
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{\ensuremath{#2}}}%
+
+\newcommand{\pqMat}[1]{
+  {\Scale[.925]{\begin{smallmatrix}
+    #1 % 1 & 2 \\ 3 & 4
+    \end{smallmatrix}}}
+}\newcommand{\typepq}[2]{\left[\pqMat{#1\\#2}\right]}
+
+\newcommand{\ConstantP}[2]{\boldsymbol{#1}_{#2}}
+\newcommand{\ConstantPNo}[2]{\boldsymbol{#1}_{#2}}
+
+\newcommand{\subst}[3]{{{\boldsymbol{#1}}[#2/#3}]} %#1=list (A1...An), #2=object, #3=number between 1 and n. Substitute #2 at the #3-th entry
+\newcommand{\substMV}[4]{{{\boldsymbol{#1}}[#2,#3 / #4]}}
+
+\newcommand{\PSh}[1]{\textsf{\upshape PSh}(#1)}
+\newcommand{\PShf}{\textsf{\upshape PSh}}
+\newcommand{\Shv}[1]{\textsf{\upshape Sh}(#1)}
+\renewcommand{\ell}[1]{\lvert #1 \rvert}
+\ExplSyntaxOn
+\NewDocumentCommand{\makeabbrev}{mmm}
+ {
+  \yoruk_makeabbrev:nnn { #1 } { #2 } { #3 }
+ }
+
+\cs_new_protected:Npn \yoruk_makeabbrev:nnn #1 #2 #3
+ {
+  \clist_map_inline:nn { #3 }
+   {
+    \cs_new_protected:cpn { #2 } { #1 { ##1 } }
+   }
+ }
+\ExplSyntaxOff
+
+\makeabbrev{\textbf}{bf#1}{
+  a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,t,u,v,w,x,y,z,%
+  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,T,U,V,W,X,Y,Z }
+\makeabbrev{\boldsymbol}{bs#1}{%
+    a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,%
+    A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
+\makeabbrev{\mathsf}{sf#1}{
+  a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,%
+  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
+\makeabbrev{\mathfrak}{fk#1}{
+  a,b,c,d,e,f,g,h,j,k,i,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,%
+  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
+\makeabbrev{\mathcal}{cl#1}{
+  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
+\makeabbrev{\mathbb}{bb#1}{
+  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
+\makeabbrev{\underline}{u#1}{
+  a,b,c,d,e,f,g,h,j,k,i,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,%
+  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
+
+\def\din{\overset{\bullet\bullet}\Longrightarrow}
+\NewDocumentCommand{\pq}{m O{p} O{q}}{
+{#1}^{(#2,#3)}
+}
+
+\newcommand{\otimesDayN}[1]{\mathbin{\circledast}_{#1}}
+\NewDocumentCommand{\wEnd}{o m}{
+  \IfNoValueTF{#1}
+    {\int_{#2}}
+    {\int^{[#1]}_{#2}}
+}
+\NewDocumentCommand{\wCoend}{o m}{
+  \IfNoValueTF{#1}
+    {\int^{#2}}
+    {\int_{[#1]}^{#2}}
+}
+\def\Nat{\textsf{Nat}}
+\def\yo{y}
+
+\newcommand{\kusarigama}[1]{\Gamma(#1)}
+\let\kg\kusarigama
+\newcommand{\kgb}[1]{\Gamma\big(#1\big)}
+\newcommand{\ikg}[1]{\Gamma^{-1}(#1)}
+
+%
+\newcommand{\coKusarigama}[1]{
+     \mathchoice%
+     {\rotatebox[origin=c]{180}{$\Gamma$}(#1)}
+     {\rotatebox[origin=c]{180}{$\Gamma$}(#1)}
+     {\rotatebox[origin=c]{180}{$\scriptstyle\Gamma$}(#1)}
+     {\rotatebox[origin=c]{180}{$\scriptscriptstyle\Gamma$}(#1)}
+}
+\let\ckg\coKusarigama
+\newcommand{\ckgb}[1]{
+     \mathchoice%
+     {\rotatebox[origin=c]{180}{$\Gamma$}\big(#1\big)}
+     {\rotatebox[origin=c]{180}{$\Gamma$}\big(#1\big)}
+     {\rotatebox[origin=c]{180}{$\scriptstyle\Gamma$}\big(#1\big)}
+     {\rotatebox[origin=c]{180}{$\scriptscriptstyle\Gamma$}\big(#1\big)}
+}
+\newcommand{\ickg}[1]{
+     \mathchoice%
+     {\rotatebox[origin=c]{180}{$\Gamma$}^{-1}(#1)}
+     {\rotatebox[origin=c]{180}{$\Gamma$}^{-1}(#1)}
+     {\rotatebox[origin=c]{180}{$\scriptstyle\Gamma$}^{-1}(#1)}
+     {\rotatebox[origin=c]{180}{$\scriptscriptstyle\Gamma$}^{-1}(#1)}
+}
+\newcommand{\kgpq}[3]{\Gamma^{#1,#2}(#3)}
+\newcommand{\kgpqb}[3]{\Gamma^{#1,#2}\big(#3\big)}
+\newcommand{\kgpql}[3]{\Gamma^{#1,#2}\left(#3\right)}
+\newcommand{\ckgpq}[3]{
+     \mathchoice%
+     {\rotatebox[origin=c]{180}{$\Gamma$}^{#1,#2}(#3)}
+     {\rotatebox[origin=c]{180}{$\Gamma$}^{#1,#2}(#3)}
+     {\rotatebox[origin=c]{180}{$\scriptstyle\Gamma$}^{#1,#2}(#3)}
+     {\rotatebox[origin=c]{180}{$\scriptscriptstyle\Gamma$}^{#1,#2}(#3)}
+}
+\newcommand{\ckgpql}[3]{
+     \mathchoice%
+     {\rotatebox[origin=c]{180}{$\Gamma$}^{#1,#2}\left(#3\right)}
+     {\rotatebox[origin=c]{180}{$\Gamma$}^{#1,#2}\left(#3\right)}
+     {\rotatebox[origin=c]{180}{$\scriptstyle\Gamma$}^{#1,#2}\left(#3\right)}
+     {\rotatebox[origin=c]{180}{$\scriptscriptstyle\Gamma$}^{#1,#2}\left(#3\right)}
+}
+\newcommand{\kgfpq}[2]{\Gamma^{#1,#2}}
+\newcommand{\ckgfpq}[2]{\rotatebox[origin=c]{180}{$\Gamma$}^{#1,#2}}
+%
+\newcommand{\kgf}{\Gamma}
+\newcommand{\ckgf}{\rotatebox[origin=c]{180}{$\Gamma$}}
+
+
+\tikzcdset{
+    arrow style=tikz,
+    diagrams={>={Stealth[round,length=4pt,width=4.95pt,inset=2.75pt]}}
+}
+\tikzset{
+    din/.style={
+        double distance=0.2em,
+        decoration={
+            markings,
+            mark={
+                at position #1
+                with {
+                    \draw[fill=white] circle [radius=2pt];
+                }
+            }
+						},
+						postaction=decorate
+    },
+		double,
+    din/.default=0em
+}
+
+
+\newcommand{\DiLan}{\mathsf{DiLan}}
+\newcommand{\DiRan}{\mathsf{DiRan}}
+\newcommand{\VNat}[1]{\mathbf{Nat}_{#1}}
+\newcommand{\wLan}[1]{\mathsf{Lan}^{\left[#1\right]}}
+\newcommand{\wRan}[1]{\mathsf{Ran}^{\left[#1\right]}}
+\newcommand{\wDiLan}[1]{\mathsf{DiLan}^{\left[#1\right]}}
+\newcommand{\wDiRan}[1]{\mathsf{DiRan}^{\left[#1\right]}}
+\newcommand{\wNat}[1]{\mathsf{Nat}^{[#1]}}
+\newcommand{\wDiNat}[1]{\mathsf{DiNat}^{[#1]}}
+\newcommand{\wVDiNat}[2]{\mathsf{DiNat}^{[#1]}_{#2}}
+\newcommand{\wVNat}[2]{\mathsf{Nat}^{[#1]}_{#2}}
+\newcommand{\ev}{\mathsf{ev}}
+\newcommand{\Lan}{\mathsf{Lan}}
+\newcommand{\Ran}{\mathsf{Ran}}
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\W}{\mathsf{W}}
+\newcommand{\pLan}[3]{\mathsf{Lan}^{#1}_{#2}(#3)}
+\newcommand{\pqLan}[4]{\mathsf{Lan}^{(#1,#2)}_{#3}#4}
+\newcommand{\pqRan}[4]{\mathsf{Ran}^{(#1,#2)}_{#3}#4}
+\newcommand{\pRan}[3]{\mathsf{Ran}^{#1}_{#2}(#3)}
+
+\newcommand{\ceiling}[1]{\lceil#1\rceil}
+\let\ceil\ceiling
+
+\usetikzlibrary{decorations.markings}
+\tikzset{mid vert/.style={/utils/exec=\tikzset{every node/.append style={outer sep=0.8ex}},
+postaction=decorate,decoration={markings,
+mark=at position 0.5 with {\draw[-] (0,#1) -- (0,-#1);}}},
+mid vert/.default=0.75ex}
+\newenvironment{xsmallmatrix}[1]
+  {\renewcommand\thickspace{\kern#1}\smallmatrix}
+  {\endsmallmatrix}
+\NewDocumentCommand{\var}{o m m}{
+\IfNoValueTF{#1}{
+  \left[
+  \begin{smallmatrix} 
+  #2 \\
+  \downarrow \\ 
+  #3
+  \end{smallmatrix}\right]}
+  {
+  \left[
+  \begin{xsmallmatrix}{0em}
+    & #2 \\ 
+    #1 & \downarrow \\ 
+    & #3
+  \end{xsmallmatrix}\right]}}
+
+\NewDocumentCommand{\dummy}{O{r} O{s}}{
+    \text{ð}^{#1}_{\kern-.1em #2}
+}
+
+\newcommand{\xloongrightarrow}[1]{%
+    \mathrel{%
+    \mkern-15.25mu
+    \begin{tikzcd}[row sep=3.6em, column sep=2.7em, ampersand replacement=\&]
+        {}
+        \arrow[r, "#1"] \&
+        {}
+    \end{tikzcd}
+    \mkern-16.25mu
+    }
+}
+
+\def\colim{\mathrm{colim}}
+\NewDocumentCommand{\tpl}{m O{1} O{n}}{
+#1_{#2},\dots,#1_{#3}
+}
+
+\def\Wd{\mathsf{Wd}}
+\def\CWd{\mathsf{CWd}}
+\newcommand{\Wedges}[2]{\mathsf{Wd}_{#1}\big(#2\big)}
+\newcommand{\Cowedges}[2]{\mathsf{CWd}_{#1}\big(#2\big)}
+\newcommand{\pqdiag}{\Delta_{p,q}}
+\def\catWd{\mathsf{Wd}}% Category of Wedges
+\newcommand{\pqWedges}[4]{\Wd^{(#1,#2)}_{#3}(#4)}
+\newcommand{\pqCoWedges}[4]{\CWd^{(#1,#2)}_{#3}(#4)}
+\newcommand{\pqWedgesFunctor}[3]{\Wd^{(#1,#2)}_{#3}}
+\newcommand{\pqCoWedgesFunctor}[3]{\CWd^{(#1,#2)}_{#3}}
+\newcommand{\pqEnd}[3]{\mathop{\prescript{}{\Scale[.75]{\raisebox{.25em}{$(#1,#2)$}}}{\int_{#3}}}}
+  %{\int^{(#1,#2)}_{#3}}
+\newcommand{\pqTw}[3]{\mathsf{Tw}^{(#1,#2)}(#3)}
+\newcommand{\WpqEnd}[4]{\int^{\left[#1\right],(#2,#3)}_{#4}}
+\newcommand{\WpqCoend}[4]{\int_{\left[#1\right],(#2,#3)}^{#4}}
+% \input{./preamble/kusarigama.tex}
+\newcommand{\pqCoend}[3]{%
+  \mathchoice
+    {\mathop{\prescript{\Scale[.75]{\raisebox{-.25em}{$(#1,#2)$}}\kern-.625em}{}{\int^{#3}}}}
+    {\mathop{\prescript{\Scale[.75]{\raisebox{-.25em}{$(#1,#2)$}}\kern-.25em}{}{\int^{#3}}}}
+    {\mathop{\prescript{\Scale[.75]{\raisebox{-.25em}{$(#1,#2)$}}\kern-.25em}{}{\int^{#3}}}}
+    {\mathop{\prescript{\Scale[.75]{\raisebox{-.25em}{$(#1,#2)$}}\kern-.25em}{}{\int^{#3}}}}
+  }
+
+\def\ph{\sfh}
+\newcommand{\SloganFont}[1]{{\textit{#1. }}}
+
+\def\Cat{\mathsf{Cat}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{claim}{Claim}
+\newtheorem{definition}{Definition}
+\newtheorem{notation}{Notation}
+\newtheorem{remark}{Remark}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{axiom}{Axiom}
+\newtheorem{example}{Example}
+\newtheorem{non-example}{Non-Example}
+\newtheorem{examples}{Examples}
+\newtheorem{exercise}{Exercise}
+\newtheorem{counterexample}{Counterexample}
+\newtheorem{construction}{Construction}
+\newtheorem{warning}{Warning}
+\newtheorem{digression}{Digression}
+\newtheorem{perspective}{Perspective}
+\newtheorem{discussion}{Discussion}
+\newtheorem{terminology}{Terminology}
+\newtheorem{heuristics}{Heuristics}
+\def\op{\mathrm{op}}
+
+\author{Théo de Oliveira Santos$^\ddag$}
+\address{%
+    \noindent $^\ddag$Universidade de São Paulo,\newline
+    Instituto de Ciências Matemáticas e de Computação,\newline
+    Av. Trab. São Carlense, 400,\newline
+    13566-590 São Carlos, Brasil\newline
+    \url{theo.de.oliveira.santos@usp.br}
+}
+
+\author{Fosco Loregian$^\S$}
+\address{ 
+  \noindent $^\S$Tallinn University of Technology,\newline %
+  Institute of Cybernetics, Akadeemia tee 15/2, \newline %
+  12618 Tallinn, Estonia \newline
+  \url{fosco.loregian@taltech.ee}
+}
+
+\date{\today}
+\title{p-q-coends}
+\hypersetup{
+ pdfauthor={F and T},
+ pdftitle={p-q-coends},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.3.6)}, 
+ pdflang={English}}
+
+ \DeclareRobustCommand{\CatEl}[2]{#1\rotatebox[origin=c]{15}{$\int$}#2}

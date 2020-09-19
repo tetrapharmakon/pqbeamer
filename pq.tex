@@ -1,323 +1,8 @@
-% Created 2020-09-17 N 14:44
-% Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{amsart}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{graphicx}
-\usepackage{grffile}
-\usepackage{longtable}
-\usepackage{wrapfig}
-\usepackage{rotating}
-\usepackage[normalem]{ulem}
-\usepackage{amsmath}
-\usepackage{textcomp}
-\usepackage{amssymb}
-\usepackage{capt-of}
-\usepackage{hyperref}
-
-\newcommand{\xlongertwoheadrightarrow}[1]{%
-    \mathrel{%
-        \mkern-15.25mu
-        \begin{tikzcd}[row sep=3.6em, column sep=1.8em, ampersand replacement=\&]
-            {}
-            \arrow[r, "#1", two heads] \&
-            {}
-        \end{tikzcd}
-        \mkern-16.25mu
-    }
-}
-\let\xlongertwoheadsrightarrow\xlongertwoheadrightarrow
-% \let\twoheadrightarrow\xlongertwoheadrightarrow
-
-\newcommand{\wlim}[1]{\mathrm{lim}^{#1}}
-\newcommand{\wcolim}[1]{\mathrm{colim}^{#1}}
-\newcommand{\procirc}{\mathbin{\diamond}}
-\newcommand{\ph}{\mathsf{h}}
-\newcommand{\WeightedEnd}[2]{\int_{#1}^{#2}}
-\newcommand{\WeightedCoend}[2]{\int^{#1}_{#2}}
-\newcommand{\DiNat}{\mathrm{DiNat}}
-\newcommand{\eHom}{\textbf{hom}}
-\newcommand{\VDiNat}[1]{{\bf \DiNat}_{#1}}
-\newcommand{\VDiNatZero}[1]{\DiNat_{#1}}
-\newcommand{\pqDiNat}[2]{\DiNat^{(#1,#2)}}
-\newcommand{\pqNat}[2]{\Nat^{(#1,#2)}}
-\def\Tw#1{\mathrm{Tw}(#1)}
-\def\defeq{:=}
-\usepackage
-  { amssymb
-  , amsmath
-  , adjustbox
-  , amsthm
-  , booktabs
-  , lmodern
-  , mathtools
-  , tikz-cd
-  , todonotes
-  , xparse
-  , proof
-  , wrapfig
-  , xspace
-  , ytableau
-	, cancel
-	, commutative-diagrams
-}
-
-\usepackage{enumitem}
-\DeclareDocumentEnvironment{enumtag}{m}{%
-\begin{enumerate}%
-	[ label = \textsc{#1}\oldstylenums{\arabic*}),%
-		ref   = \textsc{#1}\oldstylenums{\arabic*}%
-	] }{ \end{enumerate} }
-
-\newcommand*{\Scale}[2][4]{\scalebox{#1}{\ensuremath{#2}}}%
-
-\newcommand{\pqMat}[1]{
-  {\Scale[.925]{\begin{smallmatrix}
-    #1 % 1 & 2 \\ 3 & 4
-    \end{smallmatrix}}}
-}\newcommand{\typepq}[2]{\left[\pqMat{#1\\#2}\right]}
-
-\newcommand{\ConstantP}[2]{\boldsymbol{#1}_{#2}}
-\newcommand{\ConstantPNo}[2]{\boldsymbol{#1}_{#2}}
-
-\newcommand{\subst}[3]{{{\boldsymbol{#1}}[#2/#3}]} %#1=list (A1...An), #2=object, #3=number between 1 and n. Substitute #2 at the #3-th entry
-\newcommand{\substMV}[4]{{{\boldsymbol{#1}}[#2,#3 / #4]}}
-
-\newcommand{\PSh}[1]{\textsf{\upshape PSh}(#1)}
-\newcommand{\PShf}{\textsf{\upshape PSh}}
-\newcommand{\Shv}[1]{\textsf{\upshape Sh}(#1)}
-\renewcommand{\ell}[1]{\lvert #1 \rvert}
-\ExplSyntaxOn
-\NewDocumentCommand{\makeabbrev}{mmm}
- {
-  \yoruk_makeabbrev:nnn { #1 } { #2 } { #3 }
- }
-
-\cs_new_protected:Npn \yoruk_makeabbrev:nnn #1 #2 #3
- {
-  \clist_map_inline:nn { #3 }
-   {
-    \cs_new_protected:cpn { #2 } { #1 { ##1 } }
-   }
- }
-\ExplSyntaxOff
-
-\makeabbrev{\textbf}{bf#1}{
-  a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,t,u,v,w,x,y,z,%
-  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,T,U,V,W,X,Y,Z }
-\makeabbrev{\boldsymbol}{bs#1}{%
-    a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,%
-    A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
-\makeabbrev{\mathsf}{sf#1}{
-  a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,%
-  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
-\makeabbrev{\mathfrak}{fk#1}{
-  a,b,c,d,e,f,g,h,j,k,i,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,%
-  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
-\makeabbrev{\mathcal}{cl#1}{
-  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
-\makeabbrev{\mathbb}{bb#1}{
-  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
-\makeabbrev{\underline}{u#1}{
-  a,b,c,d,e,f,g,h,j,k,i,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,%
-  A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z }
-
-\def\din{\overset{\bullet\bullet}\Longrightarrow}
-\NewDocumentCommand{\pq}{m O{p} O{q}}{
-{#1}^{(#2,#3)}
-}
-
-\newcommand{\otimesDayN}[1]{\mathbin{\circledast}_{#1}}
-\NewDocumentCommand{\wEnd}{o m}{
-  \IfNoValueTF{#1}
-    {\int_{#2}}
-    {\int^{[#1]}_{#2}}
-}
-\NewDocumentCommand{\wCoend}{o m}{
-  \IfNoValueTF{#1}
-    {\int^{#2}}
-    {\int_{[#1]}^{#2}}
-}
-\def\Nat{\textsf{Nat}}
-\def\yo{y}
-
-
-\tikzcdset{
-    arrow style=tikz,
-    diagrams={>={Stealth[round,length=4pt,width=4.95pt,inset=2.75pt]}}
-}
-\tikzset{
-    din/.style={
-        double distance=0.2em,
-        decoration={
-            markings,
-            mark={
-                at position #1
-                with {
-                    \draw[fill=white] circle [radius=2pt];
-                }
-            }
-						},
-						postaction=decorate
-    },
-		double,
-    din/.default=0em
-}
-
-
-\newcommand{\DiLan}{\mathsf{DiLan}}
-\newcommand{\DiRan}{\mathsf{DiRan}}
-\newcommand{\VNat}[1]{\mathbf{Nat}_{#1}}
-\newcommand{\wLan}[1]{\mathsf{Lan}^{\left[#1\right]}}
-\newcommand{\wRan}[1]{\mathsf{Ran}^{\left[#1\right]}}
-\newcommand{\wDiLan}[1]{\mathsf{DiLan}^{\left[#1\right]}}
-\newcommand{\wDiRan}[1]{\mathsf{DiRan}^{\left[#1\right]}}
-\newcommand{\wNat}[1]{\mathsf{Nat}^{[#1]}}
-\newcommand{\wDiNat}[1]{\mathsf{DiNat}^{[#1]}}
-\newcommand{\wVDiNat}[2]{\mathsf{DiNat}^{[#1]}_{#2}}
-\newcommand{\wVNat}[2]{\mathsf{Nat}^{[#1]}_{#2}}
-\newcommand{\ev}{\mathsf{ev}}
-\newcommand{\Lan}{\mathsf{Lan}}
-\newcommand{\Ran}{\mathsf{Ran}}
-\newcommand{\M}{\mathsf{M}}
-\newcommand{\W}{\mathsf{W}}
-\newcommand{\pLan}[3]{\mathsf{Lan}^{#1}_{#2}(#3)}
-\newcommand{\pqLan}[4]{\mathsf{Lan}^{(#1,#2)}_{#3}#4}
-\newcommand{\pqRan}[4]{\mathsf{Ran}^{(#1,#2)}_{#3}#4}
-\newcommand{\pRan}[3]{\mathsf{Ran}^{#1}_{#2}(#3)}
-
-\newcommand{\ceiling}[1]{\lceil#1\rceil}
-\let\ceil\ceiling
-
-\usetikzlibrary{decorations.markings}
-\tikzset{mid vert/.style={/utils/exec=\tikzset{every node/.append style={outer sep=0.8ex}},
-postaction=decorate,decoration={markings,
-mark=at position 0.5 with {\draw[-] (0,#1) -- (0,-#1);}}},
-mid vert/.default=0.75ex}
-\newenvironment{xsmallmatrix}[1]
-  {\renewcommand\thickspace{\kern#1}\smallmatrix}
-  {\endsmallmatrix}
-\NewDocumentCommand{\var}{o m m}{
-\IfNoValueTF{#1}{
-  \left[
-  \begin{smallmatrix} 
-  #2 \\
-  \downarrow \\ 
-  #3
-  \end{smallmatrix}\right]}
-  {
-  \left[
-  \begin{xsmallmatrix}{0em}
-    & #2 \\ 
-    #1 & \downarrow \\ 
-    & #3
-  \end{xsmallmatrix}\right]}}
-
-\NewDocumentCommand{\dummy}{O{r} O{s}}{
-    \text{ð}^{#1}_{\kern-.1em #2}
-}
-
-\newcommand{\xloongrightarrow}[1]{%
-    \mathrel{%
-    \mkern-15.25mu
-    \begin{tikzcd}[row sep=3.6em, column sep=2.7em, ampersand replacement=\&]
-        {}
-        \arrow[r, "#1"] \&
-        {}
-    \end{tikzcd}
-    \mkern-16.25mu
-    }
-}
-
-\def\colim{\mathrm{colim}}
-\NewDocumentCommand{\tpl}{m O{1} O{n}}{
-#1_{#2},\dots,#1_{#3}
-}
-
-\def\Wd{\mathsf{Wd}}
-\def\CWd{\mathsf{CWd}}
-\newcommand{\Wedges}[2]{\mathsf{Wd}_{#1}\big(#2\big)}
-\newcommand{\Cowedges}[2]{\mathsf{CWd}_{#1}\big(#2\big)}
-\newcommand{\pqdiag}{\Delta_{p,q}}
-\def\catWd{\mathsf{Wd}}% Category of Wedges
-\newcommand{\pqWedges}[4]{\Wd^{(#1,#2)}_{#3}(#4)}
-\newcommand{\pqCoWedges}[4]{\CWd^{(#1,#2)}_{#3}(#4)}
-\newcommand{\pqWedgesFunctor}[3]{\Wd^{(#1,#2)}_{#3}}
-\newcommand{\pqCoWedgesFunctor}[3]{\CWd^{(#1,#2)}_{#3}}
-\newcommand{\pqEnd}[3]{\mathop{\prescript{}{\Scale[.75]{\raisebox{.25em}{$(#1,#2)$}}}{\int_{#3}}}}
-  %{\int^{(#1,#2)}_{#3}}
-\newcommand{\pqTw}[3]{\mathsf{Tw}^{(#1,#2)}(#3)}
-\newcommand{\WpqEnd}[4]{\int^{\left[#1\right],(#2,#3)}_{#4}}
-\newcommand{\WpqCoend}[4]{\int_{\left[#1\right],(#2,#3)}^{#4}}
-% \input{./preamble/kusarigama.tex}
-\newcommand{\pqCoend}[3]{%
-  \mathchoice
-    {\mathop{\prescript{\Scale[.75]{\raisebox{-.25em}{$(#1,#2)$}}\kern-.625em}{}{\int^{#3}}}}
-    {\mathop{\prescript{\Scale[.75]{\raisebox{-.25em}{$(#1,#2)$}}\kern-.25em}{}{\int^{#3}}}}
-    {\mathop{\prescript{\Scale[.75]{\raisebox{-.25em}{$(#1,#2)$}}\kern-.25em}{}{\int^{#3}}}}
-    {\mathop{\prescript{\Scale[.75]{\raisebox{-.25em}{$(#1,#2)$}}\kern-.25em}{}{\int^{#3}}}}
-  }
-
-\def\ph{\sfh}
-\newcommand{\SloganFont}[1]{{\textit{#1. }}}
-
-\def\Cat{\mathsf{Cat}}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}
-\newtheorem{proposition}{Proposition}
-\newtheorem{lemma}{Lemma}
-\newtheorem{claim}{Claim}
-\newtheorem{definition}{Definition}
-\newtheorem{notation}{Notation}
-\newtheorem{remark}{Remark}
-\newtheorem{conjecture}{Conjecture}
-\newtheorem{axiom}{Axiom}
-\newtheorem{example}{Example}
-\newtheorem{non-example}{Non-Example}
-\newtheorem{examples}{Examples}
-\newtheorem{exercise}{Exercise}
-\newtheorem{counterexample}{Counterexample}
-\newtheorem{construction}{Construction}
-\newtheorem{warning}{Warning}
-\newtheorem{digression}{Digression}
-\newtheorem{perspective}{Perspective}
-\newtheorem{discussion}{Discussion}
-\newtheorem{terminology}{Terminology}
-\newtheorem{heuristics}{Heuristics}
-\def\op{\text{op}}
-
-\author{Théo de Oliveira Santos$^\ddag$}
-\address{%
-    \noindent $^\ddag$Universidade de São Paulo,\newline
-    Instituto de Ciências Matemáticas e de Computação,\newline
-    Av. Trab. São Carlense, 400,\newline
-    13566-590 São Carlos, Brasil\newline
-    \url{theo.de.oliveira.santos@usp.br}
-}
-
-\author{Fosco Loregian$^\S$}
-\address{ 
-  \noindent $^\S$Tallinn University of Technology,\newline %
-  Institute of Cybernetics, Akadeemia tee 15/2, \newline %
-  12618 Tallinn, Estonia \newline
-  \url{fosco.loregian@taltech.ee}
-}
-
-\date{\today}
-\title{p-q-coends}
-\hypersetup{
- pdfauthor={F and T},
- pdftitle={p-q-coends},
- pdfkeywords={},
- pdfsubject={},
- pdfcreator={Emacs 27.1 (Org mode 9.3.6)}, 
- pdflang={English}}
+\input{preamb.tex}
 \begin{document}
-
 \maketitle
 \tableofcontents
-
-
 \section{Motivation:}
 \label{sec:org59907ba}
 \subsection{"symmetrize" tensors of higher arity}
@@ -326,7 +11,7 @@ mid vert/.default=0.75ex}
 The so-called "Einstein summation convention" in linear algebra and differential geometry 
 asserts that it is possible to suppress the summation symbol \(\sum\) in every formula like 
 \[
- c_i v_i
+ \textstyle \sum_i c_i v_i
 \] at the cost of writing "\(c^iv_i\)"; this means that contravariant tensors' indices are superscripts,
 while covariant tensors' indices are subscripts, and whenever homonymous indices appear in a string 
 like \(c^iv_i\), it means that we are summing over that index. So, for example, the first
@@ -336,9 +21,9 @@ Bianchi identity:
 \] stands for \(\sum_i \nabla_i {R^i}_j = \dots\), and the definition of \(R\) itself expands to a daunting
 
 \begin{align*}
-R_{ij}&=-\frac{1}{2}\Big(\frac{\partial^2g_{ij}}{\partial x^a\partial x^b}+\frac{\partial^2g_{ab}}{\partial x^i\partial x^j}-\frac{\partial^2g_{ib}}{\partial x^j\partial x^a}-\frac{\partial^2g_{jb}}{\partial x^i\partial x^a}\Big)g^{ab}\\
-&\qquad+\frac{1}{2}\Big(\frac{1}{2}\frac{\partial g_{ac}}{\partial x^i}\frac{\partial g_{bd}}{\partial x^j}+\frac{\partial g_{ic}}{\partial x^a}\frac{\partial g_{jd}}{\partial x^b}-\frac{\partial g_{ic}}{\partial x^a}\frac{\partial g_{jb}}{\partial x^d}\Big)g^{ab}g^{cd}\\
-&\qquad-\frac{1}{4}\Big(\frac{\partial g_{jc}}{\partial x^i}+\frac{\partial g_{ic}}{\partial x^j}-\frac{\partial g_{ij}}{\partial x^c}\Big)\Big(2\frac{\partial g_{bd}}{\partial x^a}-\frac{\partial g_{ab}}{\partial x^d}\Big)g^{ab}g^{cd}.
+R_{ij}&=-\sum_{a,b}\frac{1}{2}\Big(\frac{\partial^2g_{ij}}{\partial x^a\partial x^b}+\frac{\partial^2g_{ab}}{\partial x^i\partial x^j}-\frac{\partial^2g_{ib}}{\partial x^j\partial x^a}-\frac{\partial^2g_{jb}}{\partial x^i\partial x^a}\Big)g^{ab}\\
+&\qquad+\frac{1}{2}\sum_{a,b,c,d}\Big(\frac{1}{2}\frac{\partial g_{ac}}{\partial x^i}\frac{\partial g_{bd}}{\partial x^j}+\frac{\partial g_{ic}}{\partial x^a}\frac{\partial g_{jd}}{\partial x^b}-\frac{\partial g_{ic}}{\partial x^a}\frac{\partial g_{jb}}{\partial x^d}\Big)g^{ab}g^{cd}\\
+&\qquad-\frac{1}{4}\sum_{a,b,c,d}\Big(\frac{\partial g_{jc}}{\partial x^i}+\frac{\partial g_{ic}}{\partial x^j}-\frac{\partial g_{ij}}{\partial x^c}\Big)\Big(2\frac{\partial g_{bd}}{\partial x^a}-\frac{\partial g_{ab}}{\partial x^d}\Big)g^{ab}g^{cd}.
 \end{align*}  
 
 This convention does not allow for "unbalanced" expression to be summed over: the
@@ -347,26 +32,25 @@ same number of subscript must be paired with the same number of superscripts.
 In category theory, the analogue operation of "summing over repeated indices" is taking a \textbf{coend} of a functor 
 \[
 T : \mathcal{C}^\text{op} \times \clC \to \clD
-\] intended as the quotient  of \(\coprod_C T(C,C)\) by the equivalence relation generated by the action of \(T\) on arrows; this analogy is not peregrine: if \(S : \mathcal{A}^\text{op} \times \mathcal{B} \to \textsf{Set}\) and \(T : \mathcal{B}^\text{op} \times \clC \to \textsf{Set}\) are two "profunctors", their composition 
+\] intended as the quotient  of \(\coprod_C T(C,C)\) by the equivalence relation generated by the action of \(T\) on arrows; this analogy is not peregrine: if \(S : \mathcal{A}^\text{op} \times \mathcal{B} \to \mathsf{Set}\) and \(T : \mathcal{B}^\text{op} \times \clC \to \mathsf{Set}\) are two "profunctors", their composition 
 \[
 ST(A,C) :=  \int^B S(A,B)\times T(B,C)
 \] is akin to the matrix product of two matrices, seen as functions \(S : [n]\times [m] \to K\), \(T : [m]\times [r] \to K\).
 
-(A perfect analogy is this: let \$A,B,C\$be discrete categories; then the profunctor composition of \(S : A\times B \to \textsf{Set}\) and \(T : B \times C \to \textsf{Set}\) is the matrix product of an \(|A|\times |B|\) and a \(|B|\times |C|\) matrix.)
+(A perfect analogy is this: let $A,B,C$ be discrete categories; then the profunctor composition of \(S : A\times B \to \mathsf{Set}\) and \(T : B \times C \to \mathsf{Set}\) is the matrix product of an \(|A|\times |B|\) and a \(|B|\times |C|\) matrix.)
 
 \subsection{Question(s)}
 \label{sec:org1c57692}
-
-What if we want to sum/integrate/coend over an "unbalanced tensor" like 
-\[
-T : (\clC^\text{op})^p \times \clC^q = \clC^{(p,q)} \to \clD
-\] for \(p,q\ge 1\)?
-
-Is the resulting theory well-behaved as the classical one?
-
-No one would debate about the usefulness of "balanced" integrals; are the unbalanced ones good for something similar?
-
-This work aims at answering all these questions in the positive:
+\begin{itemize}
+	\item What if we want to sum/integrate/coend over an "unbalanced tensor" like 
+	\[
+		T : (\clC^\text{op})^p \times \clC^q = \clC^{(p,q)} \to \clD
+		\] for \(p,q\ge 1\)?
+\item Is the resulting theory well-behaved as the classical one?
+\item No one would debate about the usefulness of "balanced" integrals; are the unbalanced ones good for something similar?
+\end{itemize}
+		
+		This work aims at answering all these questions in the positive:
 
 \begin{itemize}
 \item Yes, one can define a notion of \textbf{co/end} for "higher arity" functors \(\clC^{(p,q)} \to \clD\);
@@ -379,8 +63,13 @@ At this point, perhaps the most enlightening example is the following, appearing
 \begin{proposition}
 Let $F,G : \clC^\text{op} \times \clC \to \clD$ be two functors; define the functor 
 \[
-\mathrm{DNat}(F^\uparrow,G^\downarrow) : \clC^\text{op} \times \clC \to \textsf{Set}
-\] sending $(A,B)$ to $\clD(F_A^B, G^A_B)$; then, the set of dinatural transformations $F \din G$ is canonically isomorphic to the end of $\text{DNat}(F^\uparrow,G^\downarrow)$.
+\mathrm{DNat}(F^\uparrow,G^\downarrow) : \clC^\text{op} \times \clC \to \mathsf{Set}
+\] sending $(A,B)$ to $\clD(F_A^B, G^A_B)$; then, the set of dinatural transformations $F \din G$ is canonically isomorphic to the end of $\text{DNat}(F^\uparrow,G^\downarrow)$, i.e. to the equaliser of the diagram  
+\[
+\begin{tikzcd}
+	\prod_C \clD(F_C^C,G_C^C) \ar[r,shift left, "u"] \ar[r,shift right, "v"'] & \prod_{A\to B} \clD(F_A^B, G_B^A)
+\end{tikzcd}	
+\]
 \end{proposition}
 
 \subsection{generalised dinaturality recently introduced by A. Santamaria in his PhD thesis}
@@ -409,14 +98,11 @@ Here instead, we adopt a different convention: a generic power \(\clC^\alpha\) i
 		\end{tikzcd}
 	$
 	(with $n = \ell \bsA$ a positive integer) is a family of morphisms in $\clD$
-	\[
-		\bigl( \phi_{\bsA} : F(\bsA\sigma) \to G(\bsA\tau) \bigr)_{\bsA \in \clC^n}.
-	\]
-\end{definition}
-This translates into a family 
-\[ 
-	\phi_{A_1,\dots,A_n} : F(A_{\sigma 1}, \dots, A_{\sigma\ell\alpha}) \to G(A_{\tau1},\dots,A_{\tau\ell\beta}).
-\]
+	\[ 
+		\phi_{A_1,\dots,A_n} : F(A_{\sigma 1}, \dots, A_{\sigma\ell\alpha}) \to G(A_{\tau1},\dots,A_{\tau\ell\beta}).
+		\]
+		for each tuple of objects $\tpl{A}$ of $\clC$.
+	\end{definition}
 
 Notice that \(\alpha\) and \(\beta\) are \emph{different} multi-indices in this definition, and \(\sigma,\tau\) need not be injective or surjective, so we may have repeated or unused variables.
 \begin{definition}\label{def:dinaturality in i-th variable}
@@ -679,7 +365,7 @@ It is important, even if straightforward, to note that as far as higher arity co
 			\pqEnd{p}{q}{A\in\clC}D^{\uA}_{\!\uA}   & \cong \lim\Big(\Tw{\clC}\twoheadrightarrow {\Sigma_{p,q}}\pq{\clC}\xloongrightarrow{D}\clD\Big),   \\
 			\pqCoend{p}{q}{A\in\clC}D^{\uA}_{\!\uA} & \cong \colim\Big(\Tw{\clC}\twoheadrightarrow {\Sigma_{p,q}}\pq{\clC}\xloongrightarrow{D}\clD\Big),
 		\end{align*}
-		where $\Sigma_{p,q}\colon\Tw{\clC}\longrightarrow\pq{\clC}$ is the composition $\Delta^{(p,q)}\circ\Sigma$, with $\Sigma$ the usual forgetful functor from $\Tw{\clC}$ to $\clC^{\op}\times\clC$. Explicitly, $\Sigma^{(p,q)}$ is the functor
+		where $\Sigma_{p,q}\colon\Tw{\clC}\longrightarrow\pq{\clC}$ is the composition $\Delta^{(p,q)}\circ\Sigma$, with $\Sigma$ the usual Sigma functor from $\Tw{\clC}$ to $\clC^{\op}\times\clC$. Explicitly, $\Sigma^{(p,q)}$ is the functor
 		\[
 			\begin{tikzcd}[row sep=0cm]
 				\Tw{\clC} \ar[r] & \pq{\clC}\\
@@ -718,14 +404,15 @@ It is important, even if straightforward, to note that as far as higher arity co
 \label{sec:orgb57aafa}
 \subsection{Some of them are trivial}
 \begin{example}[Some $(p,q)$-co/ends are trivial for trivial reasons]\leavevmode
-	We show that the two $(0,2)$-ends and $(0,2)$-coends of the functor $\otimes : \clC \times \clC \to \clC$ that gives $\clC$ a monoidal structure are trivial under very mild assumptions on $\clC$. This rules out a class of possibly interesting examples coming from multilinear algebra.
+	\begin{itemize} 
+		\item The $(0,2)$-ends and $(0,2)$-coends of the functor $\otimes : \clC \times \clC \to \clC$ that gives $\clC$ a monoidal structure are trivial under very mild assumptions on $\clC$. This rules out a class of possibly interesting examples coming from multilinear algebra.
 
-	To fix ideas, let $R$ be a commutative ring, and let's consider the category $\text{Mod}_R$ (with additional care one can take left modules and right modules, of course). To show that
+	Consider the category $\mathsf{Mod}_R$ (with additional care one can take left modules and right modules, of course). To show that
 	\begin{align*}
-		\pqEnd{0}{2}{A}{A\otimes A}   & \cong \lim_{A,B\in\text{Mod}_R} A\otimes B    \cong 0, \\
-		\pqCoend{0}{2}{A}{A\otimes A} & \cong \colim_{A,B\in\text{Mod}_R} A\otimes B  \cong 0,
+		\pqEnd{0}{2}{A}{A\otimes A}   & \cong \lim_{A,B\in\mathsf{Mod}_R} A\otimes B    \cong 0, \\
+		\pqCoend{0}{2}{A}{A\otimes A} & \cong \colim_{A,B\in\mathsf{Mod}_R} A\otimes B  \cong 0,
 	\end{align*}
-	we just observe that $\text{Mod}_R$ is a sifted category, because it admits finite coproducts. The fact that a category $\clC$ is sifted if and only if $\clC$ is non-empty and the diagonal functor $\Delta_{\clC}\colon\clC\longrightarrow\clC\times\clC$ is final%
+	we just observe that $\mathsf{Mod}_R$ is a sifted category, because it admits finite coproducts. The fact that a category $\clC$ is sifted if and only if $\clC$ is non-empty and the diagonal functor $\Delta_{\clC}\colon\clC\longrightarrow\clC\times\clC$ is final%
 	%--- Begin Footnote ---%
 	\footnote{%
 		This is due to \cite{gabriel-ulmer}; see also \cite[Proposition 5.3.2]{richter2020categories} or \cite[Theorem 2.15]{algebraic-theories-arv} for reviews.
@@ -733,10 +420,8 @@ It is important, even if straightforward, to note that as far as higher arity co
 	%---  End Footnote  ---%
 	then yields the result.
 
-	It's not difficult to see that if $\clC$ is a sifted category, all diagonal functors $\Delta : \clC \to \clC^n$ are final, because the product and composition of final functors is itself final. Thus the same result transports to higher coends of higher arity functors: for example, $\bigwedge^{k} : \text{Mod}_R^{n} \to \text{Mod}_R$ sending $M$ to $\bigwedge^{k}M$.
-\end{example}
-\begin{example}[More $(p,q)$-co/ends are trivial for similarly trivial reasons]
-	Let $R$ be a ring. The \emph{walking cochain complex} (\cite[Paragraph 35.1]{joyal:quasi}) is the $\text{Mod}_{R}$-enriched category $\textsf{Ch}$ whose set of objects is the set of integers, and where the hom-sets are $R$-modules freely generated by
+	\item If $\clC$ is a sifted category, all diagonal functors $\Delta : \clC \to \clC^n$ are final, because the product and composition of final functors is itself final. Thus the same result transports to higher coends of higher arity functors: for example, $\bigwedge^{k} : \mathsf{Mod}_R^{n} \to \mathsf{Mod}_R$ sending $M$ to $\bigwedge^{k}M$.
+	\item Let $R$ be a ring. The \emph{walking cochain complex} (\cite[Paragraph 35.1]{joyal:quasi}) is the $\mathsf{Mod}_{R}$-enriched category $\textsf{Ch}$ whose set of objects is the set of integers, and where the hom-sets are $R$-modules freely generated by
 	\[
 		\sfC([m],[n])=\begin{cases}
 			\{d,0\} & \text{ if } m=n+1\text{,} \\
@@ -744,7 +429,7 @@ It is important, even if straightforward, to note that as far as higher arity co
 			\{0\}     & \text{ otherwise.}
 		\end{cases}
 	\]
-	Now, a cochain complex is precisely a $\text{Mod}_{R}$-enriched functor from the $\textsf{Ch}$ to $\text{Mod}_{R}$. Similarly, \emph{bi}complexes are $\text{Mod}_{R}$-enriched functors from $\textsf{Ch}\boxtimes_{\mathsf{Mod}_{R}}\textsf{Ch}$ to $\mathsf{Mod}_{R}$.
+	Now, a cochain complex is precisely a $\mathsf{Mod}_{R}$-enriched functor from the $\textsf{Ch}$ to $\mathsf{Mod}_{R}$. Similarly, \emph{bi}complexes are $\mathsf{Mod}_{R}$-enriched functors from $\textsf{Ch}\boxtimes_{\mathsf{Mod}_{R}}\textsf{Ch}$ to $\mathsf{Mod}_{R}$.
 
 	Let $D\colon\textsf{Ch}\boxtimes_{\mathsf{Mod}_{R}}\textsf{Ch}\longrightarrow\mathsf{Mod}_{R}$ be a bicomplex. We claim that its $\mathsf{Mod}_{R}$-enriched $(2,0)$-end $E$ is just the zero module. Indeed, looking at $(2,0)$-wedges, we see that they are either of the form
 	\begin{center}
@@ -777,9 +462,10 @@ It is important, even if straightforward, to note that as far as higher arity co
 	Now, it follows from the second diagram that
 	\[E\cong\textstyle \big\{(a_{k})_{k\in\bbZ}\in\prod_{k\in\bbZ}D^{k,k}\ \mid\ a_{k+1}=\mathrm{d}^{k,k}(a_{k})\big\},\]
 	but differentials square to zero, so we must have $a_{k}=0$ for all $k\in\bbZ$, and $E$ is indeed isomorphic to the zero module. A similar argument shows that $\pqCoend{0}{2}{[k]\in\textsf{Ch}}D^{k,k}\cong0$.
+\end{itemize}
 \end{example}
 \begin{example}[Bisimplicial sets]
-	Recall that a \emph{bisimplicial set} (\cite[Chapter IV]{goerss-jardine}, \cite[\S 3.1.15]{cisinski-model-categories}) is a functor $X : \Delta^\op\times \Delta \to \textsf{Set}$; moreover, the \emph{diagonalisation} of a bisimplicial set $X_{\bullet,\bullet}\colon\Delta^\op\times\Delta^\op\longrightarrow\textsf{Set}$ is the simplicial set $\text{d}(X)_{\bullet}\colon\Delta^\op\longrightarrow\textsf{Set}$ given by
+	Recall that a \emph{bisimplicial set} (\cite[Chapter IV]{goerss-jardine}, \cite[\S 3.1.15]{cisinski-model-categories}) is a functor $X : \Delta^\op\times \Delta \to \mathsf{Set}$; moreover, the \emph{diagonalisation} of a bisimplicial set $X_{\bullet,\bullet}\colon\Delta^\op\times\Delta^\op\longrightarrow\mathsf{Set}$ is the simplicial set $\text{d}(X)_{\bullet}\colon\Delta^\op\longrightarrow\mathsf{Set}$ given by
 	\[\text{d}(X)_{n}\defeq X_{n,n}.\]
 	Joining the products and equalisers formula for $(p,q)$-coends we  see that $\pqCoend{2}{0}{[n]\in\Delta^\op}X_{n,n}$ is the coequaliser of he diagram
 	\[
@@ -799,14 +485,16 @@ It is important, even if straightforward, to note that as far as higher arity co
 \label{sec:orgc0066fa}
 \subsection{Juicy examples:}
 \subsubsection{A glance at weighted co/ends}\label{glance_at_weightends}
-We now introduce a natural factory of examples for higher arity co/ends. In a nutshell, weighted co/ends stand to co/ends in the same relation as weighted co/limits stand to limits.
+Weighted co/ends stand to co/ends in the same relation as weighted co/limits stand to limits.
 \begin{definition}[Weighted co/end]\label{def:weighted-co-ends}
 	Let $\clC$ and $\clD$ be $\clV$-enriched categories and $D\colon\clC^{\op}\otimes_{\clV}\clC\longrightarrow\clD$ a $\clV$-functor, and $W :\clC^\op\times \clC \to \clV$ a $\clV$-presheaf.
 	\begin{enumtag}{we}
 		\item The \emph{end of $D$ weighted by $W$} is, if it exists, the object $\smash{\WeightedEnd{A\in\clC}{W}D^{A}_{A}}$ of $\clD$ with the property that
-		\[\hom_{\clD}\Big(-,{\WeightedEnd{A\in\clC}{W}D^{A}_{A}}\Big)\cong\VDiNat{\clV}(W,\eHom_{\clC}(-,D)).\]
+		\[\hom_{\clD}\Big(X,{\WeightedEnd{A\in\clC}{W}D^{A}_{A}}\Big)\cong\VDiNat{\clV}(W,\eHom_{\clC}(X,D))\]
+		naturally in $X\in\clD$.
 		\item The \emph{coend of $D$ weighted by $W$} is, if it exists, the object $\smash{\WeightedCoend{A\in\clC}{W}D^{A}_{A}}$ of $\clD$ with the property that
-		\[\hom_{\clD}\Big({\WeightedCoend{A\in\clC}{W}D^{A}_{A}},-\Big)\cong\VDiNat{\clV}(W,\eHom_{\clC}(D,-)).\]
+		\[\hom_{\clD}\Big({\WeightedCoend{A\in\clC}{W}D^{A}_{A}},Y\Big)\cong\VDiNat{\clV}(W,\eHom_{\clC}(D,Y))\]
+		naturally in $Y\in\clD$.
 	\end{enumtag}
 \end{definition}
 \begin{example}[Weighted co/ends are $(2,2)$-co/ends]
@@ -946,7 +634,7 @@ One defines weighted right Kan extensions in a dual manner:
 			\arrow[from=F,to=1-2,shorten=1.0em,Rightarrow,xshift=-0.125em,yshift=-0.25em]
 		\end{tikzcd}
 	\]
-	Similarly, given a weight $W\colon\clC^{\op}\longrightarrow\textsf{Set}$, we have
+	Similarly, given a weight $W\colon\clC^{\op}\longrightarrow\mathsf{Set}$, we have
 	\[
 		\wLan{W}_{!}D\cong\ceil{\wcolim{W}(D)}
 		\quad
@@ -974,34 +662,34 @@ One can also prove that the following formulas hold (\cite{weighend}):
 \end{align}
 Equipped with these, we now proceed to compute a few weighted Kan extensions.
 \begin{example}
-	Consider the functor $\text{i}^\op : 1^\op \to \Delta^\op$;
-	the left and right Kan extensions of a set $X_{\bullet}\colon1\longrightarrow\textsf{Set}$ along $\text{i}^{\op}$ are given by
+	Consider the functor $\imath^\op : 1^\op \to \Delta^\op$;
+	the left and right Kan extensions of a set $X_{\bullet}\colon1\longrightarrow\mathsf{Set}$ along $\imath^{\op}$ are given by
 	\begin{align*}
-		\Lan_{\text{i}^{\op}}(X) & \cong \underline{X}_{\bullet} \\
-		\Ran_{\text{i}^{\op}}(X) & \cong \check{C}(X).
+		\Lan_{\imath^{\op}}(X) & \cong \underline{X}_{\bullet} \\
+		\Ran_{\imath^{\op}}(X) & \cong \check{C}(X).
 	\end{align*}
-	Now take a weight $W\colon1^{\op}\times1\longrightarrow \textsf{Set}$:
+	Now take a weight $W\colon1^{\op}\times1\longrightarrow \mathsf{Set}$:
 	\[
 		\begin{tikzcd}[row sep={4.5em,between origins}, column sep={4.5em,between origins}, ampersand replacement=\&]
 			{}
 			\&
 			\Delta^\op
-		\arrow[d, "\wLan{W}_{\text{i}^{\op}}X", dashed]
+		\arrow[d, "\wLan{W}_{\imath^{\op}}X", dashed]
 			\\
 			1^{\op}
-			\arrow[ru, "\text{i}^{\op}"]
+			\arrow[ru, "\imath^{\op}"]
 			\arrow[l, "W",mid vert,loop left]
 			\arrow[r, "X"'{name=F}]
 			\&
-			\textsf{Set}
+			\mathsf{Set}
 			% 2-Arrows
 			% \arrow[from=F,to=1-2,shorten=1.125em,Rightarrow,xshift=-0.125em,yshift=-0.25em]
 		\end{tikzcd}
 	\]
 	Then
 	\begin{align*}
-		\wLan{W}_{\text{i}^{\op}}(X) & \cong \underline{W\times X}_{\bullet} \\
-		\wRan{W}_{\text{i}^{\op}}(X) & \cong \check{C}(W\times X).
+		\wLan{W}_{\imath^{\op}}(X) & \cong \underline{W\times X}_{\bullet} \\
+		\wRan{W}_{\imath^{\op}}(X) & \cong \check{C}(W\times X).
 	\end{align*}
 \end{example}
 \begin{example}
@@ -1019,12 +707,12 @@ Equipped with these, we now proceed to compute a few weighted Kan extensions.
 			{\star}
 		\end{tikzcd}
 	\]%
-	The left and right Kan extensions of a simplicial set $X_{\bullet}\colon\Delta^\op\longrightarrow\textsf{Set}$ along $\pi^{\op}$ are given by
+	The left and right Kan extensions of a simplicial set $X_{\bullet}\colon\Delta^\op\longrightarrow\mathsf{Set}$ along $\pi^{\op}$ are given by
 	\begin{align*}
 		\Lan_{\pi^{\op}}(X_{\bullet}) & \cong \pi_{0}(X_{\bullet})               \\
 		\Ran_{\pi^{\op}}(X_{\bullet}) & \cong \ev_{0}(X_{\bullet}) \defeq X_{0}.
 	\end{align*}
-	Now, a weight $W^{\bullet}_{\bullet}\colon\Delta^{\op}\times\Delta\longrightarrow\textsf{Set}$ is wonderfully complicated: it is a cosimplicial space!
+	Now, a weight $W^{\bullet}_{\bullet}\colon\Delta^{\op}\times\Delta\longrightarrow\mathsf{Set}$ is wonderfully complicated: it is a cosimplicial space!
 	\[
 		% \begin{tikzcd}[row sep={4.5em,between origins}, column sep={4.5em,between origins}, ampersand replacement=\&]
 		% 	{}
@@ -1037,7 +725,7 @@ Equipped with these, we now proceed to compute a few weighted Kan extensions.
 		% 	\arrow[l, "W",mid vert,loop left]
 		% 	\arrow[r, "X_{\bullet}"'{name=F}]
 		% 	\&
-		% 	\textsf{Set}
+		% 	\mathsf{Set}
 		% 	% 2-Arrows
 		% 	\arrow[from=F,o=1-2,shorten=1.125em,Rightarrow,xshift=-0.125em,yshift=-0.25em]
 		% \end{tikzcd}
@@ -1048,7 +736,7 @@ Equipped with these, we now proceed to compute a few weighted Kan extensions.
 		      \[
 			      \wLan{\Delta^{\bullet}}_{\pi^{\op}}(X_{\bullet}) \cong \int^{[n]\in\Delta}\Delta^{n}\times X_{n}.
 		      \]
-		\item Dually, taking again $W=\Delta^{\bullet}$ but now a cosimplicial object $X^{\bullet}\colon\Delta\longrightarrow\textsf{Set}$,
+		\item Dually, taking again $W=\Delta^{\bullet}$ but now a cosimplicial object $X^{\bullet}\colon\Delta\longrightarrow\mathsf{Set}$,
 		      \[
 			      \wRan{\Delta^{\bullet}}_{\pi}(X^{\bullet}) = Tot(X_{\bullet}).
 		      \]
@@ -1073,7 +761,7 @@ Equipped with these, we now proceed to compute a few weighted Kan extensions.
 			\arrow[l, "W^{\bullet}_{\bullet}",mid vert,loop left]
 			\arrow[r, "X_{\bullet}"'{name=F}]
 			\&
-			\textsf{Set}
+			\mathsf{Set}
 			% 2-Arrows
 			\arrow[from=F,to=1-2,shorten=1.25em,Rightarrow,xshift=-0.125em,yshift=-0.25em]
 		\end{tikzcd}
@@ -1089,7 +777,7 @@ Equipped with these, we now proceed to compute a few weighted Kan extensions.
 		R(X_{\bullet}) & \cong \pqCoend{2}{2}{[n]\in\Delta}[\Delta^{n}[n],      X_{n}] \cong ?
 	\end{align*}
 \end{example}
-\begin{example}[Stalks of a sheaf {(\cite[Paragraph 6.8 and Section 7.1]{sgaiv})}]
+\begin{example}[Weighing the stalks of a sheaf]% {(\cite[Paragraph 6.8 and Section 7.1]{sgaiv})}]
 	Let $i_{p}\colon\{p\}\hookrightarrow X$ be the inclusion of a point into a topological space $X$. We get an induced functor
 	\[
 		\begin{tikzcd}[row sep=0.0em, column sep=2.7em,  ampersand replacement=\&]
@@ -1116,23 +804,24 @@ Equipped with these, we now proceed to compute a few weighted Kan extensions.
 			\arrow[ru, "\clO(i_{p})^{\op}"]
 			\arrow[r, "\mathcal{F}"'{name=F}]
 			\&
-			\textsf{Set}
+			\mathsf{Set}
 			% 2-Arrows
 			\arrow[from=F,to=1-2,shorten=1.75em,Rightarrow,xshift=-0.125em,yshift=-0.25em]
 		\end{tikzcd}
 	\]
-	we obtain a functor $\Lan_{\clO(i_{p})^{\op}}\colon\PSh{X}\longrightarrow\PSh{\{p\}}$, whose image at $\mathcal{F}$ is written $\ceil{\mathcal{F}_{p}}$ for simplicity. The restriction of this functor to $\Shv{X}$ can be identified with the stalk functor $(-)_{p}\colon\Shv{X}\longrightarrow\textsf{Set}$: we have $\clO(\{p\})=\{\varnothing\hookrightarrow\{p\}\}$ and computing the images of $\varnothing$ and $\{p\}$ under $\ceil{\mathcal{F}_{p}}$ via the usual colimit formula for left Kan extensions gives
+	we obtain a functor $\Lan_{\clO(i_{p})^{\op}}\colon\PSh{X}\longrightarrow\PSh{\{p\}}$, whose image at $\mathcal{F}$ is written $\ceil{\mathcal{F}_{p}}$ for simplicity. The restriction of this functor to $\Shv{X}$ can be identified with the stalk functor $(-)_{p}\colon\Shv{X}\longrightarrow\mathsf{Set}$: we have $\clO(\{p\})=\{\varnothing\hookrightarrow\{p\}\}$ and computing the images of $\varnothing$ and $\{p\}$ under $\ceil{\mathcal{F}_{p}}$ via the usual colimit formula for left Kan extensions gives
 	\begin{align*}
-		\ceil{\mathcal{F}_{p}}(\{p\})       & \cong \colim\left(\left(\clO(\ceil{p})\downarrow\underline{\{p\}}\right)^{\op}\xlongertwoheadrightarrow{\pi^{\op}}\clO(X)^{\op}\xrightarrow{\mathcal{F}}\textsf{Set}\right),       \\
+		\ceil{\mathcal{F}_{p}}(\{p\})       & \cong \colim\left(\left(\clO(\ceil{p})\downarrow\underline{\{p\}}\right)^{\op}\xlongertwoheadrightarrow{\pi^{\op}}\clO(X)^{\op}\xrightarrow{\mathcal{F}}\mathsf{Set}\right),       \\
 		                                      & \cong \colim_{U\ni p}(\mathcal{F}(U)),                                                                                                                                                   \\
 		                                      & \cong \mathcal{F}_{p}                                                                                                                                                                    \\
-		\ceil{\mathcal{F}_{p}}(\varnothing) & \cong \colim\left(\left(\clO(\ceil{p})\downarrow\underline{\varnothing}\right)^{\op}\xlongertwoheadrightarrow{\pi^{\op}}\clO(X)^{\op}\xrightarrow{\mathcal{F}}\textsf{Set}\right), \\
+		\ceil{\mathcal{F}_{p}}(\varnothing) & \cong \colim\left(\left(\clO(\ceil{p})\downarrow\underline{\varnothing}\right)^{\op}\xlongertwoheadrightarrow{\pi^{\op}}\clO(X)^{\op}\xrightarrow{\mathcal{F}}\mathsf{Set}\right), \\
 		                                      & \cong \colim_{U\hookrightarrow\varnothing}(\mathcal{F}(U)),                                                                                                                              \\
 		                                      & \cong \mathcal{F}(\varnothing).
 	\end{align*}
-	(in case $\mathcal{F}$ is a sheaf, $\mathcal{F}(\varnothing)$ is the singleton set.) Consider the same situation, but now with a weight $W\colon\clO(X)\times\clO(X)^{\op}\longrightarrow\textsf{Set}$ (an "extradiagonal presheaf on $X$"):
+	(in case $\mathcal{F}$ is a sheaf, $\mathcal{F}(\varnothing)$ is the singleton set.) Consider the same situation, but now with a weight $W\colon\clO(X)\times\clO(X)^{\op}\longrightarrow\mathsf{Set}$ (an "extradiagonal presheaf on $X$"):
 	\[
-		\begin{tikzcd}[row sep={6.3em,between origins}, column sep={6.3em,between origins}, ampersand replacement=\&]
+		\begin{tikzcd}[%[row sep={6.3em,between origins}, column sep={6.3em,between origins}, 
+			ampersand replacement=\&]
 			{}
 			\&
 			\clO(\{p\})^{\op}
@@ -1143,9 +832,9 @@ Equipped with these, we now proceed to compute a few weighted Kan extensions.
 			\arrow[l, "W",mid vert,loop left]
 			\arrow[r, "\mathcal{F}"'{name=F}]
 			\&
-			\textsf{Set}
+			\mathsf{Set}
 			% 2-Arrows
-			\arrow[from=F,to=1-2,shorten=1.75em,Rightarrow,xshift=-0.125em,yshift=-0.25em]
+			\arrow[from=F,to=1-2,shorten=1em,Rightarrow,xshift=-0.125em,yshift=-0.25em]
 		\end{tikzcd}
 	\]
 	We may compute $\wLan{W}_{\clO(i_{p})^{\op}}\mathcal{F}\defeq\ceil{\mathcal{F}_{p}^{[W]}}$ as the weighted coend
@@ -1189,7 +878,7 @@ Equipped with these, we now proceed to compute a few weighted Kan extensions.
 			\&
 			\clE
 			% 2-Arrows
-			\arrow[from=F,to=1-2,din=0.70,shorten <=1.2em,shorten >=1.2em+0.3em]
+			\arrow[from=F,to=1-2,din=0.60,shorten <=1.2em,shorten >=1.5em+0.35em]
 		\end{tikzcd}
 	\]
 	natural in $G$.
@@ -1293,10 +982,10 @@ A forthcoming work \cite{extradiag} will address the topic of this remark in its
 \end{example}
 In order to introduce the next example, we recall the following notation: we have an adjunction
 \[
-	(\pi\dashv\text{i})\colon
+	(\pi\dashv\imath)\colon
 	\begin{tikzcd}[row sep=2.7em, column sep=2.7em,  ampersand replacement=\&]
 		1
-		\arrow[r, "\text{i}"'{name=F}, hook, shift right = 1.8, bend right = 0] \&
+		\arrow[r, "\imath"'{name=F}, hook, shift right = 1.8, bend right = 0] \&
 		\Delta\mathrlap{,}
 		\arrow[l, "\pi"'{name=G}, two heads, shift right = 1.8, bend left=0]
 		%--- Adjunction Symbol
@@ -1305,7 +994,7 @@ In order to introduce the next example, we recall the following notation: we hav
 \]
 where
 \begin{itemize}
-	\item $\text{i}\colon1\hookrightarrow\Delta$ is the functor choosing the terminal object;
+	\item $\imath\colon1\hookrightarrow\Delta$ is the functor choosing the terminal object;
 	\item $\pi\colon\Delta\twoheadrightarrow 1$ is the terminal functor;
 \end{itemize}
 This induces a quadruple adjunction%
@@ -1313,15 +1002,15 @@ This induces a quadruple adjunction%
 	\left(\pi_0\dashv\underline{(-)}_{\bullet}\dashv\ev_{0}\dashv\check{C}\right)\colon
 	\begin{tikzcd}[
 			ampersand replacement=\&]
-		\textsf{Set}
+		\mathsf{Set}
 		\ar[r, shift left=.5em]\ar[r,shift right=.5em]\&
 		\textsf{sSet}
-		\ar[, "\pi_0"', shift right=1em]
+		\ar[l, "\pi_0"', shift right=1em]
 		\ar[l]
 	\end{tikzcd}
 \]
 \begin{example}
-	Let $S_{\bullet}^{\bullet}\colon\Delta^\op\times\Delta\longrightarrow\textsf{Set}$ be a cosimplicial space. What is $\DiLan_{\pi^{\op}\times\pi}(S_{\bullet}^{\bullet})$?
+	Let $S_{\bullet}^{\bullet}\colon\Delta^\op\times\Delta\longrightarrow\mathsf{Set}$ be a cosimplicial space. What is $\DiLan_{\pi^{\op}\times\pi}(S_{\bullet}^{\bullet})$?
 	\[
 		\begin{tikzcd}[row sep={5.4em,between origins}, column sep={5.4em,between origins}, ampersand replacement=\&]
 			{}
@@ -1333,7 +1022,7 @@ This induces a quadruple adjunction%
 			\arrow[ru, "{\pi^{\op}\times\pi}",two heads]
 			\arrow[r, "S^{\bullet}_{\bullet}"'{name=F}]
 			\&
-			\textsf{Set}
+			\mathsf{Set}
 			% 2-Arrows
 			\arrow[from=F,to=1-2,din=0.625,shorten <=1.6em,shorten >=1.6em+0.3em,xshift=-0.125em]
 		\end{tikzcd}
@@ -1343,48 +1032,48 @@ This induces a quadruple adjunction%
 		\DiLan_{\pi^{\op}\times\pi}(S^{\bullet}_{\bullet}) & \cong \int^{[n]\in\Delta}\hom_{1}(\star,\star)\odot S^{n}_{n}, \\
 		                                                   & \cong \int^{[n]\in\Delta}S^{n}_{n}.
 	\end{align*}
-	Similarly, given a set $X\colon1^{\op}\times1\longrightarrow\textsf{Set}$, we have
+	Similarly, given a set $X\colon1^{\op}\times1\longrightarrow\mathsf{Set}$, we have
 	\[
 		\begin{tikzcd}[row sep={5.4em,between origins}, column sep={5.4em,between origins}, ampersand replacement=\&]
 			{}
 			\&
 			\Delta^\op\times\Delta
-			\arrow[d, "\DiLan_{\text{i}^{\op}\times\text{i}}(X)", dashed]
+			\arrow[d, "\DiLan_{\imath^{\op}\times\imath}(X)", dashed]
 			\\
 			1^{\op}\times1
-			\arrow[ru, "{\text{i}^{\op}\times\text{i}}",hook]
+			\arrow[ru, "{\imath^{\op}\times\imath}",hook]
 			\arrow[r, "X"'{name=F}]
 			\&
-			\textsf{Set}
+			\mathsf{Set}
 			% 2-Arrows
 			\arrow[from=F,to=1-2,din=0.625,shorten <=1.6em,shorten >=1.6em+0.3em,xshift=-0.125em]
 		\end{tikzcd}
 	\]
 	\begin{align*}
-		\DiLan_{\text{i}^{\op}\times\text{i}}(X) & \cong \int^{\star\in1}\hom_{\Delta^\op\times\Delta}(([0],[0]),(-_{1},-_{2}))\odot X, \\
+		\DiLan_{\imath^{\op}\times\imath}(X) & \cong \int^{\star\in1}\hom_{\Delta^\op\times\Delta}(([0],[0]),(-_{1},-_{2}))\odot X, \\
 		                                 & \cong \hom_{\Delta^\op\times\Delta}(([0],[0]),(-_{1},-_{2}))\odot X                       \\
 		                                 & \cong \hom_{\Delta}([0],-_{2})\odot X                                                               \\
 		                                 & \cong \Delta^{-_{2}}[0]\odot X.
 	\end{align*}
-	Similarly, let $X_{\bullet}^{\bullet}\colon\Delta^\op\times\Delta\longrightarrow\textsf{Set}$ be a cosimplicial space again. What is $\DiLan_{\Delta}(X_{\bullet}^{\bullet})$?
+	Similarly, let $X_{\bullet}^{\bullet}\colon\Delta^\op\times\Delta\longrightarrow\mathsf{Set}$ be a cosimplicial space again. What is $\DiLan_{\Delta}(X_{\bullet}^{\bullet})$?
 	\[
 		\begin{tikzcd}[row sep={5.4em,between origins}, column sep={5.4em,between origins}, ampersand replacement=\&]
 			{}
 			\&
-			\textsf{Set}
+			\mathsf{Set}
 			\arrow[d, "\DiLan_{\Delta}(X^{\bullet}_{\bullet})", dashed]
 			\\
 			\Delta^\op\times\Delta
 			\arrow[ru, "{\Delta^{-_{2}}[-_{1}]}"]
 			\arrow[r, "X^{\bullet}_{\bullet}"'{name=F}]
 			\&
-			\textsf{Set}
+			\mathsf{Set}
 			% 2-Arrows
 			\arrow[from=F,to=1-2,din=0.625,shorten <=1.6em,shorten >=1.6em+0.3em,xshift=-0.125em]
 		\end{tikzcd}
 	\]
 	\[
-		\DiLan_{\Delta}(X^{\bullet}_{\bullet}) \cong \int^{[n]\in\Delta}\textsf{Set}(\Delta^{n}[n],-)\odot X^{n}_{n}.
+		\DiLan_{\Delta}(X^{\bullet}_{\bullet}) \cong \int^{[n]\in\Delta}\mathsf{Set}(\Delta^{n}[n],-)\odot X^{n}_{n}.
 	\]
 \end{example}
 \subsubsection{Weighted diagonal Kan extensions}
@@ -1419,7 +1108,7 @@ Day convolution was introduced by B.\ Day in \cite{day:thesis,day:report}, in or
 We now propose a generalisation of this framework based on higher arity coends: let $(\clC,\otimes,I)$ be a monoidal category, and let $\clK\defeq \PSh{\clC}$. Higher arity Day convolution is defined as a family of functors $\otimesDayN{n} : \clK^n\to \clK$:
 \begin{definition}\label{nn_day_convolution}
 	The \textbf{Day $(n,n)$-convolution} of an $n$-tuple of presheaves $\tpl{\mathcal{F}}$ is the presheaf
-	\[\otimesDayN{n}(\tpl{\mathcal{F}})\colon\clC^{\op}\longrightarrow\textsf{Set}\]
+	\[\otimesDayN{n}(\tpl{\mathcal{F}})\colon\clC^{\op}\longrightarrow\mathsf{Set}\]
 	defined at $A\in\clC_o$ as the $(n,n)$-coend
 	\[\otimesDayN{n}(\tpl{\mathcal{F}}) \defeq A \mapsto \pqCoend{n}{n}{A\in\clC}\mathcal{F}_{1}(A)\times\cdots\times\mathcal{F}_{n}(A)\times\clC\left(-,A^{\otimes n}\right),\]
 	where $A^{\otimes n}$ is shorthand for the $n$-fold tensor product of $A$ with itself.
@@ -1455,16 +1144,288 @@ We now propose a generalisation of this framework based on higher arity coends: 
 \end{remark}
 \section{Kusarigamas}
 \label{sec:orgade2373}
-\subsection{Reducing dinaturality to naturality}
+\emph{Kusarigamas} are functors of type $\typepq{q}{p}$ attached to a functor $G$ of type $\typepq{p}{q}$, and enjoying a universal property among these. They are functors 
+\begin{align*}
+	\ckgfpq{p}{q} & : \Cat\big(\pq{\clC},\clD\big)\longrightarrow\Cat\big(\pq{\clC}[q][p],\clD\big), \\
+	\kgfpq{p}{q}  & : \Cat\big(\pq{\clC},\clD\big)\longrightarrow\Cat\big(\pq{\clC}[q][p],\clD\big), 
+\end{align*}
+that can be regarded as
+\begin{itemize}
+	\item Universal objects among $(p,q)$-dinatural transformations, through which all other $(p,q)$-dinaturals factor:% (\cref{def:co-kusarigamas,rem:unwinding-co-kusarigamas}):
+	      \[ \pqDiNat{p}{q}\left(F,G\right)                 \cong \Nat\left(F,\kgpq{p}{q}{G}\right)             \cong \Nat\left(\ckgpq{p}{q}{F},G\right);\]
+	      % \item A certain {\color{red} comonad-monad} adjunction $\ckgfpq{p}{q}\dashv \kgfpq{p}{q} : \Cat(\pq{\clC}, \clD) \leftrightarrows \Cat(\pq{\clC}, \clD)$ of a special kind (\cref{missing}), based on the `iterated tracing indentities' of \cref{missing};
+	\item Functors that can be inductively defined through suitable Kan extensions% (\cref{higher-arity-co-kusarigamas-from-1-1-co-kusarigamas}), 
+	starting from the case $\typepq{1}{1}$:
+	      \[ \kgpq{p}{q}{G} \cong \Ran_{\pqdiag^*G}{\kgpq{1}{1}{G}}; \qquad \ckgpq{p}{q}{F} \cong \Lan_{\pqdiag^* F}{\ckgpq{1}{1}{F}}.\]
+\end{itemize}
+The paramount property of the co/kusarigama functors is that 
+\begin{quote}
+	given a category $\clC$, the category of elements of $\ckgpq{p}{q}{1}$, where $1 : \pq{\clC} \to \textsf{Set}$ is the terminal presheaf, is the universal fibration needed to build a higher-arity version of the \emph{twisted arrow category} (i.e., the category of elements of $\hom_\clC$).
+\end{quote}
+This makes it possible to express the $(p,q)$-co/end of $G : \pq{\clC} \to \clD$ as a co/limit over the $(p,q)$-twisted arrow category of $\clC$: 
+\begin{align*}
+	\pqEnd{p}{q}{A\in\clC}D^{\uA}_{\uA}   & \cong \lim\Big(\pqTw{p}{q}{\clC}\xloongrightarrow{\Sigma_{(p,q)}}\pq{\clC}\xloongrightarrow{D}\clD\Big),               \\
+	\pqCoend{p}{q}{A\in\clC}D^{\uA}_{\uA} & \cong \colim\Big(\pqTw{p}{q}{\clC^{\op}}^{\op}\xloongrightarrow{\Sigma_{(p,q)}}\pq{\clC}\xloongrightarrow{D}\clD\Big).
+\end{align*}
+\subsection{Reducing dinaturality to naturality, and other properties}
+\begin{construction}[Constructing co/kusarigamas]\leavevmode\label{con:constructing-cokusarigamas}%
+	\begin{itemize} \item Suppose that $\clD$ is cocomplete. Then
+	\[
+		\pqCoend{p}{q}{A\in\clC}\left(\ph^{-}_{\bsA_{q}}\times\ph^{\bsA_{p}}_{-}\right)\odot F^{\bsA_{p}}_{\bsA_{q}}
+	\]%
+	meaning the $(p,q)$-coend of
+	\[
+		\begin{tikzcd}[row sep=0.0em, column sep=2.7em, ampersand replacement=\&]
+			\pq{\clC}
+			\arrow[r]
+			\&
+			\Cat(\pq{\clC}[q][p],\clD)
+			\\
+			(\uA,\uB)
+			\arrow[r, mapsto]
+			\&
+			\hom_{\pq{\clC}[q][p]}\left((\uB,\uA);(-,-)\right)\odot F^{\uA}_{\uB},
+		\end{tikzcd}
+	\]
+	is the cokusarigama of $F$.
+	\item Suppose that $\clD$ is complete. Then
+	\[
+		\pqEnd{q}{p}{A\in\clC}\left(\ph^{\bsA_{p}}_{-}\times\ph^{-}_{\bsA_{q}}\right)\pitchfork G^{\bsA_{q}}_{\bsA_{p}},
+	\]%
+	meaning the $(q,p)$-coend of
+	\[%begin{diagram}\label{diagram:constructions-of-kusarigamas}
+		\begin{tikzcd}[row sep=0.0em, column sep=2.7em, ampersand replacement=\&]
+			\pq{\clC}[q][p]
+			\arrow[r]
+			\&
+			\Cat(\pq{\clC},\clD)
+			\\
+			(\uA,\uB)
+			\arrow[r, mapsto]
+			\&
+			\hom_{\pq{\clC}[q][p]}\left((\uA,\uB);(-,-)\right)\pitchfork G^{\uA}_{\uB},
+		\end{tikzcd}
+	\]%end{diagram}
+	is the kusarigama of $G$.
+\end{itemize}
+\end{construction}
+Explicitly, 
+\begin{gather*}
+\kgfpq{p}{q}(G)(\uX,\uY)  \cong \pqEnd{q}{p}{A\in\clC} \Big(\ph^{A}_{X_1} \times \dots \times\ph^{A}_{X_p} \times \ph^{Y_1}_{A} \times \dots \times\ph^{Y_q}_A \Big)\pitchfork G^{A,\dots,A}_{A,\dots,A}\\
+\ckgfpq{p}{q}(F)(\uX,\uY)  \cong \pqCoend{q}{p}{A\in\clC} \Big(\ph^{A}_{X_1} \times \dots \times \ph^{A}_{X_p} \times \ph^{Y_1}_{A} \times \dots \times\ph^{Y_q}_A \Big)\odot F^{A,\dots,A}_{A,\dots,A}\\
+\end{gather*}
+\begin{proposition}[Properties of Co/kusarigamas]\label{properties-of-co-kusarigamas}
+	Let $D,F,G :\pq{\clC}\rightrightarrows\clD$ be functors, where $\clD$ is a bicomplete category.
+	\begin{enumtag}{pk}
+		\item\label{adjointness-of-co-kusarigamas}\SloganFont{Adjointness}We have an adjunction
+		\begin{equation*}
+			\begin{tikzcd}
+				\Cat\big(\pq{\clC},\clD\big)
+				\arrow[r, "\ckgfpq{p}{q}"{name=F}, shift left=1.75] &
+				\Cat\left(\pq{\clC}[q][p],\clD\right).
+				\arrow[l, "\kgfpq{q}{p}"{name=G}, shift left=1.75]
+				\arrow[phantom, from=F, to=G, "\dashv" rotate=-90]
+			\end{tikzcd}
+		\end{equation*}
+		\item\label{commutativity-of-co-kusarigamas-with-homs}\SloganFont{Commutativity with homs} Let $F : \pq{\clC} \to \clD$ be a functor, and let us consider the functors
+		\begin{align*}
+            \clD(F,1) : \clD \to \Cat(\pq{\clC}[q][p],\textsf{Set}), D     & \mapsto \big((\uA,\uB)\mapsto\clD\left(F^{\uA}_{\uB}, D\right)\big),\\
+            \clD(1,F) : \clD^\op \to \Cat(\pq{\clC},\textsf{Set}), D       & \mapsto \big((\uA,\uB)\mapsto\clD\left(D,F^{\uA}_{\uB}\right)\big),
+		\end{align*}
+		% $h^D$ be the functor $\clD(D,1) : \clD \to \PSh{\pq{\clC}[q][p]}$, and similarly for $h_D$; 
+		then the diagrams
+		\begin{center}
+			\begin{adjustbox}{max height=0.5\textheight, max width=0.875\textwidth}
+				\parbox{\linewidth}{
+					\[
+                        \begin{tikzcd}[row sep={4.5em,between origins}, column sep={5.0em,between origins}, ampersand replacement=\&]
+							\&\clD\ar[dr, "{\clD(F,1)}"]\ar[dl, "{\clD(\ckgpq{p}{q}F,1)}"']\& \\
+							\Cat(\pq{\clC}[q][p],\textsf{Set}) \ar[rr,"\kgfpq{q}{p}"']\&\& \Cat(\pq{\clC},\textsf{Set})
+						\end{tikzcd}\qquad
+                        \begin{tikzcd}[row sep={4.5em,between origins}, column sep={5.0em,between origins}, ampersand replacement=\&]
+							\&\clD \ar[dr, "{\clD(1,F)}"]\ar[dl, "{\clD(1,\kgpq{p}{q}F)}"'] \& \\
+							\Cat(\pq{\clC},\textsf{Set}) \ar[rr,"\kgfpq{p}{q}"']\&\& \Cat(\pq{\clC}[q][p],\textsf{Set})
+						\end{tikzcd}
+					\]
+				}
+			\end{adjustbox}
+		\end{center}
+        commute:
+		\[ 	\clD(\ckgpq{p}{q}{F},1) \cong \kgpq{q}{p}{\clD(F,1)} \qquad \qquad
+			\clD(1,\kgpq{p}{q}{D}) \cong \kgpq{p}{q}{\clD(1,D)}.\]
+		%  \begin{align*}
+		%       h_{\kgpq{p}{q}{D}}  & \cong \kgpq{p}{q}{h_{D}},  \\
+		%       h^{\ckgpq{p}{q}{D}} & \cong \kgpq{q}{p}{h^{D}}.
+		%   \end{align*}
+		\item\label{co-limits-of-kusarigamas}\SloganFont{Limits of kusarigamas}We have functorial isomorphisms
+		\[
+			\pqEnd{p}{q}{\uA\in\clC}D^{\uA}_{\uA}   \cong \lim\left(\kgpq{p}{q}{D}\right),   \qquad
+			\pqCoend{p}{q}{\uA\in\clC}D^{\uA}_{\uA} \cong \colim\left(\ckgpq{q}{p}{D}\right).
+		\]
+		\item\label{higher-arity-co-kusarigamas-from-1-1-co-kusarigamas}\SloganFont{Higher arity co/kusarigamas from $(1,1)$-co/kusarigamas}The cokusarigama
+		\[\ckgpq{p}{q}{F}\colon\pq{\clC}[q][p]\longrightarrow\clD\]
+		of a functor $F\colon\pq{\clC}\longrightarrow\clD$ is the left Kan extension of the $(1,1)$-cokusarigama of $\pqdiag^{*}(F)$ along $\Delta_{q,p}$:
+		\[
+			\ckgpq{p}{q}{F}
+			=
+			\Lan_{\Delta_{q,p}}\left(\ckgb{\Delta_{p,q}^{*}(F)}\right)
+			\quad
+			\begin{tikzcd}[row sep={6.3em,between origins}, column sep={8.1em,between origins}, ampersand replacement=\&]
+				{}
+				\&
+				\pq{\clC}[q][p]
+				\arrow[d, "\ckgpq{p}{q}{F}", dashed]
+				\\
+				\clC^{\op}\times\clC
+				\arrow[ru, "\Delta_{q,p}"]
+				\arrow[r, "\ckgb{\pqdiag^{*}(F)}"'{name=F}]
+				\&
+				\clD.
+				\arrow[from=F,to=1-2,shorten=2.0em,Rightarrow,xshift=-0.0em,yshift=-0.25em]
+			\end{tikzcd}
+		\]
+		Dually, the kusarigama
+		\[\kgpq{q}{p}{G}\colon\pq{\clC}\longrightarrow\clD\]
+		of $G\colon\pq{\clC}[q][p]\longrightarrow\clD$ is the right Kan extension of the $(1,1)$-kusarigama of $\Delta_{q,p}^{*}(G)$ along $\pqdiag$:
+		\[
+			\kgpq{q}{p}{G}
+			=
+			\Ran_{\Delta_{p,q}}\left(\kgb{\Delta_{q,p}^{*}(G)}\right)
+			\quad
+			\begin{tikzcd}[row sep={6.3em,between origins}, column sep={8.1em,between origins}, ampersand replacement=\&]
+				{}
+				\&
+				\pq{\clC}
+				\arrow[d, "\kgpq{q}{p}{G}", dashed]
+				\\
+				\clC^{\op}\times\clC
+				\arrow[ru, "\pqdiag"]
+				\arrow[r, "\kgb{\Delta_{q,p}^{*}(G)}"'{name=F}]
+				\&
+				\clD.
+				\arrow[from=F,to=1-2,shorten=2.0em,Leftarrow,xshift=-0.0em,yshift=-0.25em]
+			\end{tikzcd}
+		\]
+		\end{enumtag}
+\end{proposition}
 \label{sec:org2569e2e}
-\subsection{higher arity twisted arrow categories}
-\label{sec:orgf2998fd}
+\subsection{Higher arity twisted arrow categories}
+\begin{definition}\label{p-q-twisted-category}%
+	The \emph{$(p,q)$-twisted arrow category} is the category $\pqTw{p}{q}{\clC}$ defined as the category of elements $\CatEl{\pq{\clC}[q][p]}{\ckgpq{p}{q}{1}}$ of $\ckgpq{p}{q}{1}$:
+	\begin{center}
+		\begin{tikzcd}[row sep={3.6em,between origins}, column sep={7.2em,between origins}, ampersand replacement=\&]
+			\pqTw{p}{q}{\clC}
+			\ar[d,two heads]
+			\ar[r, "\Sigma_{(p,q)}",two heads]
+			\&
+			\pq{\clC}
+			\ar[d,"\ckgpq{p}{q}{1}"]
+			\\
+			1
+			\ar[ur,Rightarrow, shorten <=2em, shorten >=2em]
+			\ar[r,"1"',hook]
+			\&
+			\textsf{Set}.
+		\end{tikzcd}
+	\end{center}%
+\end{definition}
+It is well-known that this comma object (as all categories of elements) admits an equivalent description as the comma object
+\begin{center}
+	\begin{tikzcd}[ampersand replacement=\&]
+		\pqTw{p}{q}{\clC}
+		\ar[d,two heads]
+		\ar[r, "\Sigma_{(p,q)}",two heads]
+		\&
+		\pq{\clC}
+		\ar[d,"\yo_{\pq{\clC}}"]
+		\\
+		1
+		\ar[ur,Rightarrow, shorten=2.25em]
+		\ar[r,"\lceil \ckgpq{p}{q}{1}\rceil"',hook]
+		\&
+		\PSh{\pq{\clC}},
+	\end{tikzcd}
+\end{center}%
+where $\yo_{\pq{\clC}}$ is the Yoneda embedding and $\lceil \ckgpq{p}{q}{1}\rceil$ is the ``name'' of the functor $\ckgpq{p}{q}{1}$ picking out the object $\ckgpq{p}{q}{1}$ of $\PSh{\pq{\clC}}$. All in all, this means that the $(p,q)$-twisted arrow category of $\clC$ admits the following equivalent descriptions:
+\begin{proposition}%[Unwinding \cref{p-q-twisted-category}]\label{unwinding-p-q-twisted-category}
+	$\pqTw{p}{q}{\clC}$ can be equivalently characterised as:
+	\begin{enumtag}{pqt}
+		\item\label{PQT1}The full-subcategory of $\PSh{\clC}_{/\ckgpq{p}{q}{1}}$ spanned by representable presheaves, i.e.\ the category whose
+		\begin{itemize}
+			\item Objects are natural transformations of the form $\ph_{\bsA}\longrightarrow\ckgpq{p}{q}{1}$ with $\bsA\in\big(\pq{\clC}\big)_o$;
+			\item Morphisms are natural transformations $\ph_{\bsf}\colon\ph_{\bsA}\longrightarrow\ph_{\bsB}$ such that the diagram
+			      \[
+				      \begin{tikzcd}[column sep=0.7em]
+					      \ph_{\bsA} \ar[rr, "\ph_{\bsf}"] \ar[rd] && \ph_{\bsB} \ar[ld] \\
+					      & \ckgpq{p}{q}{1} &
+				      \end{tikzcd}
+			      \]
+			      commutes.%
+		\end{itemize}
+		\item\label{PQT2}The category whose
+		\begin{itemize}
+			\item Objects are triples $(\bsX,\bsY, t)$ where $(\bsX,\bsY)$ is an object of $\pq{\clC}$, and $t$ is an element of $\ckgpq{p}{q}{1}^{\bsX}_{\bsY}$;
+			\item Morphisms are ``basepoint preserving'' morphisms $(\bsX,\bsY) \to (\bsX',\bsY')$.
+		\end{itemize}
+		\item\label{PQT4}The category whose
+		\begin{itemize}
+			\item Objects are collections $\left\{f_{ij}\colon A_{i}\longrightarrow B_{j}\right\}$ of morphisms of $\clD$ with $0\leq i\leq p$ and $0\leq j\leq q$;
+			\item Morphisms are collections of factorisations of the codomain through the domain, of the form
+			      \[
+				      \begin{tikzcd}[row sep={4.5em,between origins}, column sep={4.5em,between origins}, ampersand replacement=\&]
+					      A_{i}
+					      \arrow[r,"f"]
+					      \&
+					      B_{j}
+					      \arrow[d,"\psi_{j}"]
+					      \\
+					      A_{i}'
+					      \arrow[u,"\phi_{i}"]
+					      \arrow[r,"g"']
+					      \&
+					      B_{j}',
+				      \end{tikzcd}
+			      \]
+			      one for each $0\leq i\leq p$ and each $0\leq j\leq q$.
+		\end{itemize}
+	\end{enumtag}
+	If $\clC$ has finite products and coproducts, we gain an additional equivalent description of $\pqTw{p}{q}{\clC}$:
+	\begin{enumtag}{twd}
+		\item\label{PQT3}The category whose
+		\begin{itemize}
+			\item Objects are morphisms $A_{1}\coprod\cdots\coprod A_{p}\longrightarrow B_{1}\times\cdots\times B_{q}$;
+			\item Morphisms are factorisations of the codomain through the domain, of the form
+			      \[
+				      \begin{tikzcd}[row sep={4.5em,between origins}, column sep={9.0em,between origins}, ampersand replacement=\&]
+					      A_{1}\coprod\cdots\coprod A_{p}
+					      \arrow[r,"f"]
+					      \&
+					      B_{1}\times\cdots\times B_{q}
+					      \arrow[d,"\psi_{1}\times\cdots\times\psi_{q}"]
+					      \\
+					      \arrow[u,"\phi_{1}\coprod\cdots\coprod\phi_{p}"]
+					      A_{1}'\coprod\cdots\coprod A_{p}'
+					      \arrow[r,"g"']
+					      \&
+					      B_{1}'\times\cdots\times B_{q}'.
+				      \end{tikzcd}
+			      \]
+		\end{itemize}
+	\end{enumtag}
+\end{proposition}
+From this, 
+\begin{align*}
+	\pqEnd{p}{q}{A\in\clC}D^{\uA}_{\uA}   & \cong \lim\Big(\pqTw{p}{q}{\clC}\xloongrightarrow{\Sigma_{(p,q)}}\pq{\clC}\xloongrightarrow{D}\clD\Big),               \\
+	\pqCoend{p}{q}{A\in\clC}D^{\uA}_{\uA} & \cong \colim\Big(\pqTw{p}{q}{\clC^{\op}}^{\op}\xloongrightarrow{\Sigma_{(p,q)}}\pq{\clC}\xloongrightarrow{D}\clD\Big).
+\end{align*}
 \section{Future work (?)}
 \label{sec:org06e498e}
 \subsection{weighing co/ends: the full story}
-\label{sec:orgd095d54}
+This and that
 \subsection{kusarigamas are a toy example of "extradiagonal" (for lack of a better name) transformation}
-\label{sec:org8578925}
-\subsection{A graphical language for higher arity co/ends.}
-\label{sec:org2f3574c}
+This and that 
+\subsection{A graphical language for higher arity co/ends.} This and that
+
+
+
 \end{document}
